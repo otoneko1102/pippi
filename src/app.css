@@ -11,6 +11,9 @@ body {
 	color: #660033;
 	padding: 0;
 	margin: 0;
+	/* Prevent automatic text-size adjustments on mobile (iOS Safari etc.) */
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
 }
 
 header {
@@ -331,5 +334,13 @@ header {
 	.logo-wrap {
 		width: 36vw;
 		height: 36vw;
+	}
+}
+
+/* Mobile: increase textarea font-size to avoid iOS auto-zoom when inputs are focused */
+@media (max-width: 600px) {
+	textarea {
+		font-size: 16px;
+		line-height: 1.4;
 	}
 }

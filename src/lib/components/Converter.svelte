@@ -6,6 +6,7 @@
 	import Result from '$lib/components/Result.svelte';
 
 	let input = '';
+	let placeholder = '鹿児島県志布志市市志布志町志布志市';
 	let output = '';
 	let loading = true;
 	let loadingMessage = 'なうろーでぃんぐ…';
@@ -84,7 +85,7 @@
 	}
 
 	function doConvert() {
-		let text = input || '';
+		let text = input || placeholder || '';
 
 		if (useMorpho && morphoAvailable && tokenizer) {
 			try {
@@ -128,7 +129,7 @@
 
 <div class="converter">
 	<div><small>入力</small></div>
-	<TextArea bind:value={input} placeholder="鹿児島県志布志市市志布志町志布志市" />
+	<TextArea bind:value={input} placeholder={placeholder} />
 
 	<Options bind:useKata bind:useKataPippi bind:useShort bind:useMorpho {morphoAvailable} />
 
