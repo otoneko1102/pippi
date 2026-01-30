@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+/* 追加：全体で box-sizing を統一 */
+* {
+	font-family: 'DotGothic16', 'MS PGothic', monospace, serif;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #ffe0f0;
+	color: #660033;
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	background: #ff99cc;
+	padding: 8px 0;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+.ticker {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.scroll {
+	display: inline-block;
+	padding-left: 100%;
+	animation: marquee 12s linear infinite;
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+@keyframes marquee {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+.menu {
+	background-color: #fff0f5;
+	border-bottom: 2px solid #ff99cc;
+	position: fixed;
+	top: 38px;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+.menu-btn {
+	display: block;
+	padding: 10px;
+	background-color: #ff99cc;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+	text-align: center;
+	user-select: none;
+}
+
+.menu-content {
+	display: none;
+	padding: 10px;
+	background-color: #fff0f5;
+}
+
+.menu-content ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.menu-content li {
+	margin: 6px 0;
+}
+
+.menu-content a {
+	font-size: 12px;
+	color: #660033;
+}
+
+#toggle {
+	display: none;
+}
+
+#toggle:checked + .menu-btn + .menu-content {
+	display: block;
+}
+
+main {
+	margin: 90px 10px;
+	padding: 20px 20px;
+	max-width: 500px;
+	width: 100%;
+	min-height: 480px;
+	border: 3px double #ff99cc;
+	box-shadow: 0 0 12px #ffccdd;
+	background-color: #fffafc;
+	overflow-wrap: break-word;
+}
+
+/* Mobile: add extra top spacing so header/menu (fixed) don't overlap content */
+@media (max-width: 950px) {
+	main {
+		margin-top: calc(var(--header-height) + var(--menu-height) + 12px);
+	}
+}
+
+h1 {
+	font-size: 18px;
+	border-bottom: 2px dotted #ff99cc;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+textarea {
+	width: 100%;
+	background-color: #fff0f5;
+	border: 1px solid #ff99cc;
+	color: #330000;
+	padding: 10px;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+button {
+	background-color: #ff99cc;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+button:hover {
+	background-color: #ff6699;
+}
+
+/* primary style for converted buttons */
+button.primary {
+	background-color: #ff99cc;
+	border: none;
+}
+button.primary:hover {
+	background-color: #ff6699;
+}
+button.primary:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+/* tweet button blue */
+button.tweet {
+	background-color: #1d9bf0;
+}
+button.tweet:hover {
+	background-color: #1d60c6;
+}
+button.tweet:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.options {
+	margin: 10px 0;
+	font-size: 12px;
+}
+
+pre {
+	background: #fffafc;
+	padding: 10px;
+	max-width: 100%;
+	min-height: 100px;
+	font-size: 12px;
+	border: 1px dashed #ff99cc;
+
+	white-space: pre-wrap;
+	word-break: break-all;
+	overflow-wrap: break-word;
+	overflow-x: auto;
+}
+
+.side-info {
+	padding: 10px;
+	background-color: #fff0f5;
+	border-top: 2px solid #ff99cc;
+	margin: 20px;
+}
+
+/* header/menu sizing vars and fixed positioning for top bars */
+:root {
+	--header-height: 48px;
+	--menu-height: 48px;
+	--top-spacing: calc(var(--header-height) + var(--menu-height) + 24px);
+}
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	min-height: var(--header-height);
+}
+.menu {
+	position: fixed;
+	top: var(--header-height);
+	left: 0;
+	width: 100%;
+	z-index: 999;
+}
+
+@media screen and (min-width: 950px) {
+	body {
+		display: flex;
+		justify-content: center;
+		padding: 20px;
+		padding-top: calc(var(--header-height) + var(--menu-height) + 16px);
+	}
+	h1 {
+		font-size: 24px;
+	}
+
+	/* Three-column layout - tighter spacing */
+	.layout {
+		display: grid;
+		grid-template-columns: 160px 560px 160px;
+		gap: 20px;
+		align-items: stretch;
+		max-width: 960px;
+		width: 100%;
+		margin-top: 0;
+	}
+
+	/* Make each column a flex column so children can stretch to match heights */
+	.layout > * {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.menu {
+		position: static;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		border: none;
+		padding: 12px;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+	}
+	.menu-btn {
+		display: none;
+	}
+	.menu-content {
+		display: block !important;
+		padding: 0;
+		background: none;
+		margin-top: 0;
+		flex: 1;
+		overflow: auto;
+		box-sizing: border-box;
+	}
+
+	main.center {
+		padding: 0;
+	}
+	.card {
+		background: #fff;
+		border: 1px solid #ff99cc;
+		padding: 14px;
+		box-shadow: 0 4px 0 rgba(255, 153, 204, 0.15);
+		height: 100%;
+		box-sizing: border-box;
+	}
+	.card h1 {
+		margin: 0 0 12px 0;
+		font-size: 20px;
+		text-align: center;
+		padding-bottom: 6px;
+		border-bottom: 2px dotted #ff99cc;
+	}
+
+	.side-info {
+		position: static;
+		width: 100%;
+		height: 100%;
+		background: #fff0f5;
+		border: 2px solid #ff99cc;
+		padding: 12px;
+		font-size: 14px;
+		box-sizing: border-box;
+	}
+}
+
+.logo-wrap {
+	width: 100%;
+	height: auto;
+	margin: 12px 0;
+	position: relative;
+}
+.logo-wrap img#logo {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+	box-shadow: 0 0 0 4px rgba(255, 240, 250, 0.6);
+}
+.logo-wrap img.logo-frame {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	pointer-events: none;
+}
+
+@media (max-width: 420px) {
+	.logo-wrap {
+		width: 36vw;
+		height: 36vw;
+	}
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ぴっぴ変換</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffe0f0" />
+
+    <meta name="title" content="ぴっぴ変換" />
+    <meta
+      name="description"
+      content="★ 掲示板風ぴっぴ変換サイトへようこそ！デザインの懐かぴっぴさを感じろ ★"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <!-- 電光掲示板 -->
+    <header>
+      <div class="ticker">
+        <div class="scroll">
+          ★ 掲示板風ぴっぴ変換サイトへようこそ！デザインの懐かぴっぴさを感じろ ★
+        </div>
+      </div>
+    </header>
+
+    <!-- メニュー -->
+    <nav class="menu">
+      <input type="checkbox" id="toggle" />
+      <label for="toggle" class="menu-btn">≡ メニュー</label>
+
+      <div class="menu-content">
+        <ul>
+          <li>
+            <a href="https://montblank.fun/" target="_blank">管理人ホームページ</a>
+          </li>
+          <li>
+            <a href="https://twitter.com/rin_montblank" target="_blank">管理人ツイッター</a>
+          </li>
+          <li>
+            <a href="https://github.com/otoneko1102" target="_blank">管理人GitHub</a>
+          </li>
+          <li><a href="#about">この掲示板について</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- メイン -->
+    <main>
+      <h1>★ 掲示板風ぴっぴ変換サイト ★</h1>
+
+      <textarea
+        id="text"
+        rows="6"
+        placeholder="鹿児島県志布志市市志布志町志布志市"
+      ></textarea>
+
+      <div class="options">
+        <label>
+          <input type="checkbox" id="katakana" />
+          全文をカタカナにする
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" id="katappippi" />
+          変換部分をカタカナにする
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" id="shortpippi" />
+          「し」→「ぴ」にする
+        </label>
+      </div>
+
+      <button id="btn">変換</button>
+      <button id="clear">リセット</button>
+
+      <h3>結果：</h3>
+      <pre id="out"></pre>
+
+      <button id="copy">コピー</button>
+      <button id="tweet">ツイートする</button>
+    </main>
+
+    <section id="about" class="side-info">
+      <h3>掲示板について</h3>
+      <p>
+        この掲示板風サイトはクライアント側でテキストを「ぴっぴ変換」するWebアプリです。
+      </p>
+    </section>
+
+    <!-- kuromoji -->
+    <script src="https://unpkg.com/kuromoji@0.1.2/build/kuromoji.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
