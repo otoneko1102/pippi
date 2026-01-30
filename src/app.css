@@ -6,11 +6,19 @@
 	box-sizing: border-box;
 }
 
+html, body {
+	height: 100%;
+}
+
 body {
 	background-color: #ffe0f0;
 	color: #660033;
 	padding: 0;
 	margin: 0;
+	/* Ensure page fills viewport so footer can stick to bottom when content is short */
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	/* Prevent automatic text-size adjustments on mobile (iOS Safari etc.) */
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
@@ -111,6 +119,8 @@ main {
 	box-shadow: 0 0 12px #ffccdd;
 	background-color: #fffafc;
 	overflow-wrap: break-word;
+	/* allow main to grow to push footer to bottom */
+	flex: 1 0 auto;
 }
 
 /* Mobile: add extra top spacing so header/menu (fixed) don't overlap content */
@@ -226,8 +236,9 @@ header {
 
 @media screen and (min-width: 950px) {
 	body {
+		/* Desktop: keep column flow so footer stays below content, add padding */
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
 		padding: 20px;
 		padding-top: calc(var(--header-height) + var(--menu-height) + 16px);
 	}
@@ -243,6 +254,7 @@ header {
 		align-items: stretch;
 		max-width: 960px;
 		width: 100%;
+		margin: 0 auto;
 		margin-top: 0;
 	}
 
@@ -343,4 +355,13 @@ header {
 		font-size: 16px;
 		line-height: 1.4;
 	}
+}
+
+/* Footer */
+.site-footer {
+	text-align: center;
+	font-size: 12px;
+	color: #660033;
+	padding: 12px 0;
+	margin-top: 20px;
 }

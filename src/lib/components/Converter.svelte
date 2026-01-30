@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import * as wanakana from 'wanakana';
 	import TextArea from '$lib/components/TextArea.svelte';
 	import Options from '$lib/components/Options.svelte';
@@ -22,6 +22,30 @@
 	let statusType: 'loading' | 'success' | 'error' | 'info' = 'loading';
 	let resultMessage = '';
 
+	// loading dots animation (cycles 1,2,3 dots every 0.1s)
+	let loadingDotsInterval: number | null = null;
+	const loadingBaseMessage = 'なうろーでぃんぐ';
+	let loadingDotCount = 0;
+	// timeout id for auto-hiding copy confirmation message
+	let copyMessageTimeout: number | null = null;
+
+	function startLoadingDots() {
+		if (loadingDotsInterval) return;
+		loadingDotCount = 0;
+		loadingMessage = loadingBaseMessage + '.';
+		loadingDotsInterval = window.setInterval(() => {
+			loadingDotCount = (loadingDotCount % 3) + 1;
+			loadingMessage = loadingBaseMessage + '.'.repeat(loadingDotCount);
+		}, 200) as unknown as number;
+	}
+
+	function stopLoadingDots() {
+		if (loadingDotsInterval) {
+			clearInterval(loadingDotsInterval);
+			loadingDotsInterval = null;
+		}
+	}
+
 	const tryLoadKuromoji = () =>
 		new Promise<any>((res, rej) => {
 			if ((window as any).kuromoji) return res((window as any).kuromoji);
@@ -35,8 +59,9 @@
 
 	onMount(async () => {
 		loading = true;
-		loadingMessage = 'なうろーでぃんぐ…';
+		loadingMessage = loadingBaseMessage + '・';
 		statusType = 'loading';
+		startLoadingDots();
 		try {
 			await tryLoadKuromoji();
 			const kuromojiLib = (window as any).kuromoji;
@@ -67,7 +92,7 @@
 
 			tokenizer = await buildTokenizerWithFallback();
 			morphoAvailable = true;
-			loadingMessage = 'ろーど完了！';
+			loadingMessage = 'ろーどが完了ぴっぴまぴっぴた！';
 			statusType = 'success';
 		} catch (e) {
 			console.warn('kuromoji init failed', e);
@@ -75,7 +100,17 @@
 			loadingMessage = 'ろーど失敗…';
 			statusType = 'error';
 		} finally {
+			// stop animated dots on completion (success or failure)
+			stopLoadingDots();
 			loading = false;
+		}
+	});
+
+	onDestroy(() => {
+		stopLoadingDots();
+		if (copyMessageTimeout) {
+			clearTimeout(copyMessageTimeout);
+			copyMessageTimeout = null;
 		}
 	});
 
@@ -114,8 +149,16 @@
 	async function doCopy() {
 		// Clipboard write handled by Result.svelte's click handler; parent only sets persistent message
 		if (!output) return;
-		resultMessage = 'コピーしました！';
-	}
+		resultMessage = 'コピーぴっぴまぴっぴた！';		// clear any previous timeout
+		if (copyMessageTimeout) {
+			clearTimeout(copyMessageTimeout);
+			copyMessageTimeout = null;
+		}
+		// hide message after 3 seconds
+		copyMessageTimeout = window.setTimeout(() => {
+			resultMessage = '';
+			copyMessageTimeout = null;
+		}, 3000) as unknown as number;	}
 	function doTweet() {
 		if (!output) return;
 		// クライアント側で現在ページのURLを取得してツイートに追加
@@ -123,7 +166,7 @@
 		const tweet = `${output}\n\n${pageUrl}`;
 		window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweet), '_blank');
 		// show persistent message near result area
-		resultMessage = 'ツイート画面を開きます…';
+		resultMessage = '';
 	}
 </script>
 

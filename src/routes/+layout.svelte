@@ -14,3 +14,5 @@
 </svelte:head>
 
 {@render children()}
+
+<footer class="site-footer">otoneko. &copy; 2025-2026 All rights reserved.</footer>
