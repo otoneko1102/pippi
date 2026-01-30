@@ -39,12 +39,32 @@
 		try {
 			await tryLoadKuromoji();
 			const kuromojiLib = (window as any).kuromoji;
-			// Prefer official unpkg dictionary path
-			tokenizer = await new Promise((res, rej) =>
-				kuromojiLib
-					.builder({ dicPath: 'https://unpkg.com/kuromoji@0.1.2/dict/' })
-					.build((err: any, t: any) => (err ? rej(err) : res(t)))
-			);
+
+			// 辞書ファイル取得で HTML（エラーページ）が返るケースがあるため、複数 CDN を順に試すフォールバックを追加
+			const dicCandidates = [
+				'/dict/',
+				'https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/dict/',
+				'https://unpkg.com/kuromoji@0.1.2/dict/',
+			];
+
+			async function buildTokenizerWithFallback() {
+				for (const dicPath of dicCandidates) {
+					try {
+						const t = await new Promise((res, rej) =>
+							kuromojiLib
+								.builder({ dicPath })
+								.build((err: any, t: any) => (err ? rej(err) : res(t)))
+						);
+						console.log('kuromoji dict loaded from', dicPath);
+						return t;
+					} catch (e) {
+						console.warn('kuromoji build failed for', dicPath, e);
+					}
+				}
+				throw new Error('All kuromoji dictionary loads failed');
+			}
+
+			tokenizer = await buildTokenizerWithFallback();
 			morphoAvailable = true;
 			loadingMessage = 'ろーど完了！';
 			statusType = 'success';
@@ -97,7 +117,9 @@
 	}
 	function doTweet() {
 		if (!output) return;
-		const tweet = `${output}\n\nhttps://pippi.oto.im/pippi/`;
+		// クライアント側で現在ページのURLを取得してツイートに追加
+		const pageUrl = typeof window !== 'undefined' ? window.location.href : 'https://pippi.oto.im/pippi/';
+		const tweet = `${output}\n\n${pageUrl}`;
 		window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweet), '_blank');
 		// show persistent message near result area
 		resultMessage = 'ツイート画面を開きます…';

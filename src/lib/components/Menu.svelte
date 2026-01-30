@@ -6,7 +6,6 @@
 			<li><a href="https://montblank.fun/" target="_blank">管理人ホームページ</a></li>
 			<li><a href="https://twitter.com/rin_montblank" target="_blank">管理人ツイッター</a></li>
 			<li><a href="https://github.com/otoneko1102" target="_blank">管理人GitHub</a></li>
-			<li><a href="#about">この掲示板について</a></li>
 		</ul>
 	</div>
 </nav>

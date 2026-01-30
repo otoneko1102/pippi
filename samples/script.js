@@ -102,7 +102,9 @@ document.getElementById("tweet").onclick = () => {
     return;
   }
 
-  const tweetText = `${text}\n\nhttps://pippi.oto.im/pippi/`;
+  // ページのURLを動的に取得してツイート本文に追加
+  const pageUrl = window.location.href;
+  const tweetText = `${text}\n\n${pageUrl}`;
   const url =
     "https://twitter.com/intent/tweet?text=" +
     encodeURIComponent(tweetText);
