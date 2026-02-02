@@ -6,12 +6,12 @@
 
 <Ticker />
 
-<div class="mobi-br"></div>
-
 <div class="layout">
 	<aside class="sidebar left">
 		<Menu />
 	</aside>
+
+	<div class="mobi-br"></div>
 
 	<main class="center">
 		<div class="card">
@@ -55,7 +55,7 @@
 
 	@media (max-width: 768px) {
 		.mobi-br {
-			height: 120px;
+			height: 150px;
 		}
 	}
 </style>

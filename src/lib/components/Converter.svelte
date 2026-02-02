@@ -171,7 +171,7 @@
 </script>
 
 <div class="converter">
-	<div><small>入力</small></div>
+	<h3>入力：</h3>
 	<TextArea bind:value={input} placeholder={placeholder} />
 
 	<Options bind:useKata bind:useKataPippi bind:useShort bind:useMorpho {morphoAvailable} />
