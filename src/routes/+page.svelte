@@ -24,6 +24,7 @@
 		<section id="about" class="side-info">
 			<h3>掲示板について</h3>
 			<p>この掲示板風サイトはクライアント側でテキストを「ぴっぴ変換」するWebアプリです。</p>
+			<p>「し」を「ぴっぴ」に変換します。</p>
 		</section>
 	</aside>
 </div>

@@ -3,6 +3,7 @@
 	<label for="toggle" class="menu-btn">≡ メニュー</label>
 	<div class="menu-content">
 		<ul>
+			<li><a href="https://github.com/otoneko1102/pippi" target="_blank">GitHub Repo</a></li>
 			<li><a href="https://montblank.fun/" target="_blank">管理人ホームページ</a></li>
 			<li><a href="https://twitter.com/rin_montblank" target="_blank">管理人ツイッター</a></li>
 			<li><a href="https://github.com/otoneko1102" target="_blank">管理人GitHub</a></li>
