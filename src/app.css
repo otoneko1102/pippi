@@ -236,29 +236,28 @@ header {
 
 @media screen and (min-width: 950px) {
 	body {
-		/* Desktop: keep column flow so footer stays below content, add padding */
 		display: flex;
 		flex-direction: column;
 		padding: 20px;
-		padding-top: calc(var(--header-height) + var(--menu-height) + 16px);
+		/* デスクトップではmenuはサイドバーに入るため header 分のみ */
+		padding-top: calc(var(--header-height) + 20px);
 	}
 	h1 {
 		font-size: 24px;
 	}
 
-	/* Three-column layout - tighter spacing */
+	/* 3カラムレイアウト */
 	.layout {
 		display: grid;
-		grid-template-columns: 160px 560px 160px;
+		grid-template-columns: 160px 1fr 160px;
 		gap: 20px;
 		align-items: stretch;
 		max-width: 960px;
 		width: 100%;
 		margin: 0 auto;
-		margin-top: 0;
 	}
 
-	/* Make each column a flex column so children can stretch to match heights */
+	/* 各カラムをflexコンテナに */
 	.layout > * {
 		display: flex;
 		flex-direction: column;
@@ -288,14 +287,23 @@ header {
 		box-sizing: border-box;
 	}
 
+	/* デスクトップでは .card が見た目を担うため main のグローバルスタイルをリセット */
 	main.center {
+		margin: 0;
+		max-width: 100%;
+		min-height: auto;
+		border: none;
+		box-shadow: none;
+		background: transparent;
 		padding: 0;
+		flex: none;
+		width: 100%;
 	}
 	.card {
-		background: #fff;
-		border: 1px solid #ff99cc;
-		padding: 14px;
-		box-shadow: 0 4px 0 rgba(255, 153, 204, 0.15);
+		background: #fffafc;
+		border: 2px dotted #ff99cc;
+		padding: 16px;
+		box-shadow: 0 0 10px #ffccdd;
 		height: 100%;
 		box-sizing: border-box;
 	}
@@ -308,14 +316,14 @@ header {
 	}
 
 	.side-info {
-		position: static;
 		width: 100%;
 		height: 100%;
 		background: #fff0f5;
-		border: 2px solid #ff99cc;
+		border: 2px dotted #ff99cc;
 		padding: 12px;
-		font-size: 14px;
+		font-size: 13px;
 		box-sizing: border-box;
+		margin: 0;
 	}
 }
 

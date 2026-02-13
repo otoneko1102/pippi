@@ -24,6 +24,7 @@
 		<section id="about" class="side-info">
 			<h3>掲示板について</h3>
 			<p>この掲示板風サイトはクライアント側でテキストを「ぴっぴ変換」するWebアプリです。</p>
+			<p>「彼氏」を「かれぴっぴ」というアレです。</p>
 			<p>「し」を「ぴっぴ」に変換します。</p>
 		</section>
 	</aside>
@@ -54,9 +55,15 @@
 		border: 2px dotted #ff99cc;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 950px) {
 		.mobi-br {
-			height: 150px;
+			/* 固定ヘッダー + メニューバー分のオフセット */
+			height: calc(var(--header-height) + var(--menu-height) + 8px);
+		}
+	}
+	@media (min-width: 950px) {
+		.mobi-br {
+			display: none; /* デスクトップグリッドでは不要 */
 		}
 	}
 </style>

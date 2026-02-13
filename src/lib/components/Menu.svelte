@@ -50,4 +50,16 @@
 	.menu-content a:hover {
 		text-decoration: underline;
 	}
+
+	/* デスクトップ: サイドバーに入るためスコープスタイルを透明にリセット */
+	@media (min-width: 950px) {
+		.menu {
+			background: transparent;
+			border: none;
+			padding: 0;
+		}
+		.menu-content {
+			background: transparent;
+		}
+	}
 </style>
