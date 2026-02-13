@@ -6,7 +6,8 @@ const config = {
 		// Use adapter-static and output to `dist` for the build artifacts
 		adapter: adapter({
 			pages: 'dist',
-			assets: 'dist'
+			assets: 'dist',
+			fallback: '404.html'
 		})
 	}
 };
